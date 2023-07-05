@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid container">
+        <ul>
+         {% for podcast in podcasts %}
+             <li>
+                 <div class="row podcast-container">
+                     <div class="col-3 thumbnail-div">
+                         <img src="{{ podcast.thumbnail }}" alt="thumbnail" class="img-fluid">
+                     </div>
+                     <div class="col-9 content">
+                         <h2 class="title">{{ podcast.title }}</h2>
+                         <h3 class="description">{{ podcast.description }}</h3>
+                         <div >
+                             <i class='bx bx-headphone'></i>
+                             <a href="{{ podcast.episode_url }}" class="link">Listen to these Podcast</a>
+                         </div>
+                 </div>
+             </li>
+         {% endfor %}
+        </ul>
+         <div class="pagination">
+             
+             {% if podcasts.has_previous %}
+                 <a href="{% url 'home_page' %}?page= {{ podcasts.previous_page_number }}" class="paginator-links">Previous</a>
+             {% endif %}
+             <p class="pagination-paragraph">Page {{ podcasts.number }} of {{ podcasts.paginator.num_pages }}</p>  
+             
+             {% if podcasts.has_next %}
+                 <a href="{% url 'home_page' %}?page={{ podcasts.next_page_number }} " class="paginator-links">Next</a>
+             {% endif %}
+                   
+         </div>    
+     </div>
+</div>
+{% endblock content %}
+    
